@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.http import HttpResponseRedirect,HttpResponse
 
 from django.contrib.auth import login,authenticate,logout
+from django.contrib.auth.decorators import login_required
 """
 uid encoder = urlsafe_base64_encode(force_bytes(user.pk))
 django.contrib.auth.token import passwordresettokengenerator = Used for generating token for password reset
@@ -69,7 +70,7 @@ def loginview(request):
     
     return render(request,'accounts/login.html')
 
-
+@login_required(login_url='login')
 def logoutview(request):
     logout(request)
     return HttpResponseRedirect(reverse('login'))

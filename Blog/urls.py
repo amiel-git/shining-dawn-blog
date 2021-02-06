@@ -10,4 +10,5 @@ urlpatterns = [
     path('login/',loginview,name='login'),
     path('logout/',logoutview,name='logout'),
     path('accounts/',include('accounts.urls')),
+    path('post/',include('post.urls')),
 ]
