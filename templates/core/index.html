@@ -1,0 +1,20 @@
+{% extends 'core/base.html'%}
+
+{% block body_block%}
+<div class="hero-container">
+    <div class="header-container">
+    <h1 class='title'>Shining Dawn</h1>
+    <p class='subtitle'>A royal themed blog site specifically made for royalties like yourself</p>
+    <div class='cta'>
+        <a href="#" class='btn btn-warning'>Register</a>
+        <p id='already-have-an-account'style="font-size: 12px;">Already have an account? <a href="#">Login</a></p>
+    </div>
+    </div>
+    <div class="header-image-container">
+        <lottie-player id='kinglottie' src="https://assets2.lottiefiles.com/packages/lf20_TNRpx3.json" hover=true background="transparent"  speed="0.8"  style="width: 300px; height: 300px;"></lottie-player>
+        <p id='kings-msg' class="hide">Welcome Stranger!</p>
+    </div>
+</div>
+
+
+{%endblock%}
