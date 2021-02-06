@@ -5,6 +5,7 @@ from accounts.models import UserProfile, StaffProfile
 from django.urls import reverse
 from django.http import HttpResponseRedirect,HttpResponse
 
+from django.contrib.auth import login,authenticate,logout
 """
 uid encoder = urlsafe_base64_encode(force_bytes(user.pk))
 django.contrib.auth.token import passwordresettokengenerator = Used for generating token for password reset
@@ -12,7 +13,7 @@ passwordresettokengenerator._make_hash_value(self,user,timestamp)
 """
 
 
-def Index(request):
+def index(request):
     return render(request,'core/index.html')
 
 
@@ -50,3 +51,25 @@ def UserRegistration(request):
             return HttpResponseRedirect(reverse('index'))
 
     return render(request,'accounts/register.html',context={'form':registration_form})
+
+
+def loginview(request):
+
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username,password=password)
+
+        if user:
+            login(request,user)
+            return HttpResponseRedirect(reverse('index'))
+        
+        else:
+            return HttpResponse("User not found")
+    
+    return render(request,'accounts/login.html')
+
+
+def logoutview(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('login'))

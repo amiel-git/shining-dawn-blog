@@ -65,6 +65,7 @@ html {
     position: relative;
     color: white;
     transition: all 0.75s;
+
     opacity: 0;
 }
 
@@ -77,11 +78,12 @@ html {
 }
 
 .appear {
+   
     opacity: 1 !important;
 }
 
 
-.registration-form-container{
+.registration-form-container, .login-form-container{
     color: lightgray;
     position: absolute;
     left:50%;
@@ -90,11 +92,28 @@ html {
 }
 
 .registration-form {
-   
+    color:black;
     height: 500px;
     width: 370px;
     padding: 20px;
-    background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    background: linear-gradient(to right, #b79891, #94716b);
     border-radius: 10px;
     box-shadow: 3px 3px 8px rgba(247, 247, 247, 0.3);
+}
+
+.right-nav-items {
+    display: flex;
+}
+.logged-in-user {
+    color:white !important;
+}
+
+.login-form {
+        color:black;
+        height: 280px;
+        width: 370px;
+        padding: 20px;
+        background: linear-gradient(to right, #b79891, #94716b);
+        border-radius: 10px;
+        box-shadow: 3px 3px 8px rgba(247, 247, 247, 0.3);
 }
