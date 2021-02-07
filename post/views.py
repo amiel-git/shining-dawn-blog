@@ -49,11 +49,7 @@ class PostUpdateView(generic.UpdateView):
 
     model = Post
     template_name = 'post/create_post.html'
-    fields = [
-        'title',
-        'content',
-        'featured_image',
-    ]
+    form_class = PostForm
 
 class PostDeleteView(generic.DeleteView):
 

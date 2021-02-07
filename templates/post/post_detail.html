@@ -1,10 +1,15 @@
 {% extends 'core/base.html' %}
 
+{% load static %}
+
+{% block head_block%}
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Euphoria+Script&family=Permanent+Marker&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'css/posts.css'%}">
+
+{%endblock%}
+
 {% block body_block %}
-<h2>Post Detail Page</h2>
-<p>{{post_detail.title}}</p>
-<p>{{post_detail.content}}</p>
-<p><strong>Created on:</strong> {{post_detail.created_on}}</p>
 
 {% if request.user == post_detail.author %}
 <div class="post-cta">
@@ -14,4 +19,19 @@
 {% else %}
 <p>You are not the author of this post</p>
 {% endif %}
+<div class="jumbotron">
+    <h1 class="post-title">{{post_detail.title}}</h1>
+    <p class="post-author">By: {{post_detail.author.first_name | title }} {{post_detail.author.last_name | title }}</p>
+</div>
+
+{% if request.user == post_detail.author %}
+<div class="post-detail-container" style="transform:translate(-50%,-29%);">
+{% else %}
+<div class="post-detail-container" style="transform:translate(-50%,-25%);">
+{% endif %} 
+    <div class="post-content-container">
+        <p>{{post_detail.content}}</p>
+    </div>
+</div>
+
 {% endblock %}

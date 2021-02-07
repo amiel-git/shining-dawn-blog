@@ -22,3 +22,49 @@
     margin-left: 3.666667%;
     margin-top:30px;
 }
+
+.post-detail-container{
+     width: 70%;
+    color:#333333;
+    background: #E9ECEF;
+    transform: translate(25%) !important;
+    border-radius: 5px;
+    padding: 2% 3%;
+}
+
+.featured-img{
+    height: 400px;
+    width: 80%;
+    background-position: center;
+    background-repeat:no-repeat;
+    background-size: cover;
+    transform:translate(12%);
+    margin-top: 10px;
+    
+}
+
+.jumbotron {
+    height:200px !important;
+    margin-top: 10px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.post-title {
+    font-family: 'Permanent Marker', cursive;
+    letter-spacing: 2px;
+    text-align:center;
+    text-decoration: underline;
+    margin-bottom: 20px;
+}
+
+.post-author {
+    color: #333333;
+}
+
+.post-cta {
+    position: absolute;
+    top: 15%;
+    right: 1.5%;
+    width: 15%;
+    text-align: right;
+}
