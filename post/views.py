@@ -4,7 +4,7 @@ from post.models import Post
 from post.forms import PostForm
 
 from django.http import HttpResponse, HttpResponseRedirect
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 
 from django.contrib.auth.decorators import login_required
 
@@ -43,3 +43,19 @@ class PostDetailView(generic.DetailView):
     model = Post
     template_name = 'post/post_detail.html'
     context_object_name = 'post_detail'
+
+
+class PostUpdateView(generic.UpdateView):
+
+    model = Post
+    template_name = 'post/create_post.html'
+    fields = [
+        'title',
+        'content',
+        'featured_image',
+    ]
+
+class PostDeleteView(generic.DeleteView):
+
+    model = Post
+    success_url = reverse_lazy('post:list')

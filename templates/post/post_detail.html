@@ -1,5 +1,13 @@
 {% extends 'core/base.html' %}
 
 {% block body_block %}
+<h2>Post Detail Page</h2>
+<p>{{post_detail.title}}</p>
+<p>{{post_detail.content}}</p>
+<p><strong>Created on:</strong> {{post_detail.created_on}}</p>
 
+<div class="post-cta">
+    <a href="{% url 'post:update' pk=post_detail.id %}" class='btn btn-warning'>Update</a>
+    <a href="{% url 'post:delete' pk=post_detail.id %}" class='btn btn-danger'>Delete</a>
+</div>
 {% endblock %}

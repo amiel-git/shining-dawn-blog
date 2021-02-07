@@ -6,8 +6,8 @@
     <h1 class='title'>Shining Dawn</h1>
     <p class='subtitle'>A royal themed blog site specifically made for royalties like yourself</p>
     <div class='cta'>
-        <a href="#" class='btn btn-warning'>Register</a>
-        <p id='already-have-an-account'style="font-size: 12px;">Already have an account? <a href="#">Login</a></p>
+        <a href="{% url 'accounts:register' %}" class='btn btn-warning'>Register</a>
+        <p id='already-have-an-account'style="font-size: 12px;">Already have an account? <a href="{% url 'login' %}">Login</a></p>
     </div>
     </div>
     <div class="header-image-container">
@@ -15,6 +15,5 @@
         <p id='kings-msg' class="hide">Welcome Stranger!</p>
     </div>
 </div>
-
 
 {%endblock%}
