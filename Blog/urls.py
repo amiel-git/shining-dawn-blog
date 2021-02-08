@@ -12,6 +12,7 @@ urlpatterns = [
     path('logout/',logoutview,name='logout'),
     path('accounts/',include('accounts.urls')),
     path('posts/',include('post.urls')),
+    path('comment/',include('comments.urls')),
 ]
 
 if settings.DEBUG:

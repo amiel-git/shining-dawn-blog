@@ -72,7 +72,6 @@ class PostDetailView(generic.DetailView):
             
 
 
-
 class PostUpdateView(generic.UpdateView):
 
     model = Post

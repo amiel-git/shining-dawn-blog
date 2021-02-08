@@ -23,8 +23,6 @@
     {% endif %}
     <a href="{% url 'post:delete' pk=post_detail.id %}" class='btn btn-danger'>Delete</a>
 </div>
-{% else %}
-<p>You are not the author of this post</p>
 {% endif %}
 <div class="jumbotron">
     <h1 class="post-title">{{post_detail.title}}</h1>
@@ -43,5 +41,71 @@
         <p>{{post_detail.content}}</p>
     </div>
 </div>
+
+
+<!-- Comments Section -->
+
+<!-- Button trigger modal -->
+<div class="comment-section">
+    <h2>Comments</h2>
+    {% if not post_detail.comments.all %}
+    <p>No comments</p>
+    {% else %}
+    {%for comment in post_detail.comments.all %}
+    
+    <div class="comment-card">
+        <hr>
+        <div class="comment-content">
+            <p>{{comment.content}}</p>
+        </div>
+        <div class="comment-card-footer">
+            <div class="comment-footer-item">
+                <small >{{comment.author.username}}</small>
+            </div>
+            <div class="comment-footer-item">
+                <small>{{comment.created_on}}</small>
+            </div>
+
+        </div>
+        <hr>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        Add comment
+    </button>
+</div>
+
+
+</div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form method="POST" action="{% url 'comment:create' post_pk=post_detail.id%}" id="comment-form">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="content">Comment:</label>
+                    <textarea form="comment-form" name="content" id="" cols="30" rows="10"class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="post" >
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 {% endblock %}
