@@ -10,10 +10,17 @@
 {%endblock%}
 
 {% block body_block %}
-
+{% if flash %}
+<div class="alert alert-success" role="alert">
+    {{flash}}
+  </div>
+{% endif %}
 {% if request.user == post_detail.author %}
 <div class="post-cta">
     <a href="{% url 'post:update' pk=post_detail.id %}" class='btn btn-warning'>Update</a>
+    {% if not post_detail.is_published %}
+    <a href="{% url 'post:publish' pk=post_detail.id %}" class='btn btn-success'>Publish</a>
+    {% endif %}
     <a href="{% url 'post:delete' pk=post_detail.id %}" class='btn btn-danger'>Delete</a>
 </div>
 {% else %}
@@ -22,6 +29,9 @@
 <div class="jumbotron">
     <h1 class="post-title">{{post_detail.title}}</h1>
     <p class="post-author">By: {{post_detail.author.first_name | title }} {{post_detail.author.last_name | title }}</p>
+    {% if post_detail.is_published %}
+    <p class="post-author">Publish Date: {{post_detail.published_date}}</p>
+    {% endif %}
 </div>
 
 {% if request.user == post_detail.author %}
