@@ -39,6 +39,7 @@ def PostCreateView(request,publish=None):
     
     return render(request,'post/create_post.html',context={'form':form})
 
+@login_required(login_url='login')
 def PublishView(request,pk):
     post = Post.objects.get(pk=pk)
     if post.author == request.user:
@@ -78,9 +79,22 @@ class PostUpdateView(generic.UpdateView):
     template_name = 'post/create_post.html'
     form_class = PostForm
 
+    def get_object(self,*args, **kwargs):
+        obj = super().get_object(*args, **kwargs)
+        if obj.author != self.request.user:
+            raise Http404("Not your post")
+        else:
+            return obj
+
+
 class PostDeleteView(generic.DeleteView):
 
     model = Post
     success_url = reverse_lazy('post:list')
 
-
+    def get_object(self,*args, **kwargs):
+        obj = super().get_object(*args, **kwargs)
+        if obj.author != self.request.user:
+            raise Http404("Not your post")
+        else:
+            return obj
