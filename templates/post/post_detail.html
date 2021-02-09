@@ -51,6 +51,8 @@
     {% if not post_detail.comments.all %}
     <p>No comments</p>
     {% else %}
+
+
     {%for comment in post_detail.comments.all %}
     
     <div class="comment-card">
@@ -65,25 +67,87 @@
             <div class="comment-footer-item">
                 <small>{{comment.created_on}}</small>
             </div>
-
+            {% if comment.author.id == user.id %}
+            <div class="comment-footer-item">
+                <button type="button" class="comment-cta-update-button" data-toggle="modal" data-target="#updateCommentModal{{comment.id}}">
+                    edit
+                </button>
+                <button type="button" class="comment-cta-delete-button" data-toggle="modal" data-target="#deleteCommentModal{{comment.id}}">
+                  delete
+              </button>
+            </div>
+            {% endif %}
         </div>
         <hr>
     </div>
+
+    <!-- Edit Comment Modal -->
+    <div class="modal fade update-modal" id="updateCommentModal{{comment.id}}" tabindex="-2" role="dialog" aria-labelledby="updateCommentModal{{comment.id}}" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="updateCommentModal{{comment.id}}">Edit Comment</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form method="POST" action="{% url 'comment:update' comment_pk=comment.id post_pk=post_detail.id%}" class="comment-update-form" id="comment-update-form{{comment.id}}">
+                  {% csrf_token %}
+                  <div class="form-group">
+                      <label for="content">Comment</label>
+                      <textarea style="color:black;" form="comment-update-form{{comment.id}}" value="{{comment.content}}" name="content" cols="30" rows="10"class="form-control"></textarea>
+                  </div>
+                  <div class="form-group">
+                      <input type="submit" value="post" >
+                  </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Comment Modal -->
+    <div class="modal fade update-modal" id="deleteCommentModal{{comment.id}}" tabindex="-2" role="dialog" aria-labelledby="deleteCommentModal{{comment.id}}" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="deleteCommentModal{{comment.id}}">Are you sure you want to delete this comment?{{comment.id}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <form method="POST" action="{% url 'comment:delete' comment_pk=comment.id post_pk=post_detail.id%}" class="comment-delete-form" id="comment-delete-form{{comment.id}}">
+                  {% csrf_token %}
+                  <div class="form-group">
+                      <input type="submit" value="Delete" class="btn btn-danger" >
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  </div>
+              </form>
+          </div>
+        </div>
+      </div>
+    </div>
     {% endfor %}
     {% endif %}
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+
+
+
+  <!-- Add Comment Button -->  
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createCommentModal">
         Add comment
     </button>
 </div>
 
 
 </div>
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <!-- Add Comment Modal -->
+  <div class="modal fade" id="createCommentModal" tabindex="-1" role="dialog" aria-labelledby="createCommentModal" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <h5 class="modal-title" id="createCommentModal">Add Comment</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -93,7 +157,7 @@
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="content">Comment:</label>
-                    <textarea form="comment-form" name="content" id="" cols="30" rows="10"class="form-control"></textarea>
+                    <textarea form="comment-form" name="content" cols="30" rows="10"class="form-control"></textarea>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="post" >
@@ -106,6 +170,8 @@
       </div>
     </div>
   </div>
+
+
 
 
 {% endblock %}

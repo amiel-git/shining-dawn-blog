@@ -8,6 +8,8 @@ from django.urls import reverse, reverse_lazy
 
 from django.contrib.auth.decorators import login_required
 
+from Blog.utilities import has_post_access
+
 class PostListView(generic.ListView):
 
     model = Post
@@ -62,13 +64,9 @@ class PostDetailView(generic.DetailView):
         We need to return a 404 when someone checked on a post that is not published yet
         Except if the user accessing the unpublished post is also the owner of the post
         """
-        if self.request.user == context['post_detail'].author:
+        if has_post_access(context['post_detail'],self.request.user,method="view"):
             return context
-        else:
-            if context['post_detail'].is_published != True:
-                raise Http404("Post not published yet")    
-            else:
-                return context
+
             
 
 
@@ -80,9 +78,8 @@ class PostUpdateView(generic.UpdateView):
 
     def get_object(self,*args, **kwargs):
         obj = super().get_object(*args, **kwargs)
-        if obj.author != self.request.user:
-            raise Http404("Not your post")
-        else:
+        
+        if has_post_access(obj,self.request.user,method="update"):
             return obj
 
 

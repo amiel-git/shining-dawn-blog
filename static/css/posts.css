@@ -83,3 +83,30 @@
 .comment-section h2 {
     color:goldenrod;
 }
+
+
+.update-modal {
+    color: black;
+}
+
+.comment-update-form{
+    color:black;
+}
+
+.comment-cta-update-button {
+    background: none;
+    color: skyblue;
+    border: none;
+    position: absolute;
+    right: 14%;
+    transform: translateY(-20px);
+}
+
+.comment-cta-delete-button {
+    background: none;
+    color: red;
+    border: none;
+    position: absolute;
+    right: 10%;
+    transform: translateY(-20px);
+}
