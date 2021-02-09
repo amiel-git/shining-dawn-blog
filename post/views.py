@@ -41,6 +41,7 @@ def PostCreateView(request,publish=None):
     
     return render(request,'post/create_post.html',context={'form':form})
 
+
 @login_required(login_url='login')
 def PublishView(request,pk):
     post = Post.objects.get(pk=pk)
@@ -50,7 +51,6 @@ def PublishView(request,pk):
     else:
         raise Http404("Object Not Found")
     
-
 
 class PostDetailView(generic.DetailView):
 
@@ -66,8 +66,6 @@ class PostDetailView(generic.DetailView):
         """
         if has_post_access(context['post_detail'],self.request.user,method="view"):
             return context
-
-            
 
 
 class PostUpdateView(generic.UpdateView):
@@ -94,3 +92,19 @@ class PostDeleteView(generic.DeleteView):
             raise Http404("Not your post")
         else:
             return obj
+
+
+## User post management views
+def MyPostsView(request):
+
+    posts = Post.objects.filter(author=request.user)
+    context = {'posts':posts,'my_posts':True}
+    
+    return render(request,'post/post_list.html',context)
+
+
+def MyDraftsView(request):
+
+    drafts = Post.objects.filter(is_published=False,author=request.user)
+    context = {'posts':drafts,'is_draft':True}
+    return render(request,'post/post_list.html',context=context)

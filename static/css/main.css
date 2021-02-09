@@ -24,6 +24,18 @@ html {
     letter-spacing: 0.5 !important;
 
 }
+
+.dropdown-menu a.nav-link{
+    color:grey !important;
+}
+
+.dropdown-menu a.nav-link:hover {
+    color:#FCFCFC !important;
+    background: darkgoldenrod;
+}
+.dropdown-menu {
+    background:#E0A800;
+}
 .hero-container {
     height: 40vh;
     width: 100%;
@@ -118,3 +130,4 @@ html {
         border-radius: 10px;
         box-shadow: 3px 3px 8px rgba(247, 247, 247, 0.3);
 }
+

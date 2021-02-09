@@ -1,0 +1,12 @@
+{% extends 'core/base.html' %}
+{% load static%}
+{% block head_block%}
+<link rel="stylesheet" href="{% static 'css/posts.css'%}">
+{% endblock%}
+{% block body_block %}
+<ul>
+    {% for post in drafts %}
+    <li>{{post.title}}</li>
+    {% endfor %}
+</ul>
+{% endblock %}

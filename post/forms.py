@@ -14,5 +14,4 @@ class PostForm(forms.ModelForm):
 
         widgets = {
             'title':forms.TextInput(attrs={'type':'text','class':'post-title'}),
-            'content':forms.Textarea(attrs={'type':'text','class':'post-content'})
         }

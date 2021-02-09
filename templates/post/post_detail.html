@@ -38,7 +38,7 @@
 <div class="post-detail-container" style="transform:translate(-50%,-25%);">
 {% endif %} 
     <div class="post-content-container">
-        <p>{{post_detail.content}}</p>
+        {{post_detail.content | safe}}
     </div>
 </div>
 
@@ -95,8 +95,8 @@
               <form method="POST" action="{% url 'comment:update' comment_pk=comment.id post_pk=post_detail.id%}" class="comment-update-form" id="comment-update-form{{comment.id}}">
                   {% csrf_token %}
                   <div class="form-group">
-                      <label for="content">Comment</label>
-                      <textarea style="color:black;" form="comment-update-form{{comment.id}}" value="{{comment.content}}" name="content" cols="30" rows="10"class="form-control"></textarea>
+                      <label for="content">Comment:</label>
+                      <textarea style="color:black;" form="comment-update-form{{comment.id}}" name="content" cols="30" rows="10"class="form-control">{{comment.content}}</textarea>
                   </div>
                   <div class="form-group">
                       <input type="submit" value="post" >
@@ -170,8 +170,6 @@
       </div>
     </div>
   </div>
-
-
 
 
 {% endblock %}
