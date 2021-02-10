@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from Blog.utilities import has_post_access
 
 class PostListView(generic.ListView):
-
+    
     model = Post
     queryset = Post.objects.filter(is_published=True)
     template_name = 'post/post_list.html'

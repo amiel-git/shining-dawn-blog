@@ -7,6 +7,8 @@ from django.http import HttpResponseRedirect,HttpResponse
 
 from django.contrib.auth import login,authenticate,logout
 from django.contrib.auth.decorators import login_required
+
+from post.models import Post
 """
 uid encoder = urlsafe_base64_encode(force_bytes(user.pk))
 django.contrib.auth.token import passwordresettokengenerator = Used for generating token for password reset
@@ -15,7 +17,10 @@ passwordresettokengenerator._make_hash_value(self,user,timestamp)
 
 
 def index(request):
-    return render(request,'core/index.html')
+
+    latest_posts = Post.objects.filter(is_published=True).order_by("-published_date")[:3]
+    context = {'latest_posts':latest_posts}
+    return render(request,'core/index.html',context=context)
 
 
 def UserRegistration(request):

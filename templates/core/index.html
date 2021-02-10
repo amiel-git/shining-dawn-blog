@@ -15,5 +15,28 @@
         <p id='kings-msg' class="hide">Welcome Stranger!</p>
     </div>
 </div>
+<hr>
+<h3 class="latest-posts-heading"> Latest Posts</h3>
+<div class="posts-container">
+    {% for post in latest_posts %}
+    <div class="card" style="width: 18rem;margin-bottom: 15px;">
+        {% if not post.featured_image %}
+        <img class="card-img-top" src="https://images.unsplash.com/photo-1510936111840-65e151ad71bb?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1367&q=80" alt="Card image cap">
+        {% else %}
+        <img class="card-img-top" src="http://127.0.0.1:8000/media/{{post.featured_image}}" alt="Card image cap">
+        {% endif %}
+        
+        <div class="card-body">
+          <h5 class="card-title">{{post.title}}</h5>
+
+          <small style="margin-bottom: 10px;"class="card-text"  >Author: {{post.author.first_name}}</small><br>
+          <a href="{% url 'post:detail' pk=post.id %}" class="btn btn-primary">Go to post</a>
+        </div>
+        <div class="card-footer text-muted">
+          Published: {{post.published_date}}
+        </div>
+      </div>
+    {% endfor %}
+</div>
 
 {%endblock%}
